@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <title>HashRent — Аренда майнинг оборудования</title>
+  <meta name="description" content="Платформа аренды ASIC-майнеров в Казахстане. Пассивный доход от майнинга BTC, LTC, ETC.">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="app" id="app">
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN: HOME
+  ══════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-home">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="flex-center" style="gap:10px">
+        <div class="avatar" id="home-av">АН</div>
+        <div>
+          <div style="font-size:11px;color:var(--text3)" id="home-uid">HR-000000</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text)" id="home-name">Пользователь</div>
+        </div>
+      </div>
+      <div class="flex-center" style="gap:12px">
+        <div class="theme-picker">
+          <div class="theme-dot active" onclick="applyTheme('dark')"
+               style="background:#1A1A24" title="Gold Dark"></div>
+          <div class="theme-dot" onclick="applyTheme('light')"
+               style="background:#F0F0F5" title="Light"></div>
+          <div class="theme-dot" onclick="applyTheme('pure')"
+               style="background:#000" title="Pure Dark"></div>
+        </div>
+        <i class="ti ti-bell" style="font-size:20px;color:var(--text2);cursor:pointer"
+           aria-label="Уведомления"></i>
+      </div>
+    </div>
+
+    <!-- Balance -->
+    <div class="balance-card">
+      <div class="balance-label">Общий баланс</div>
+      <div class="balance-amount" id="home-balance">$0.00</div>
+      <div class="balance-sub">
+        Доход сегодня:&nbsp;
+        <span style="color:var(--success)" id="home-today">+$0.00</span>
+      </div>
+      <div class="balance-actions">
+        <button class="btn-outline btn-flex btn-sm" onclick="navigate('withdraw')">
+          <i class="ti ti-arrow-bar-up" style="font-size:13px;vertical-align:-2px"></i>
+          Вывод
+        </button>
+        <button class="btn-gold btn-flex btn-sm" onclick="navigate('mining')">
+          <i class="ti ti-cpu" style="font-size:13px;vertical-align:-2px"></i>
+          Майнинг
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="section-label">Меню</div>
+    <div class="menu-list">
+
+      <div class="menu-item" onclick="navigate('mining')">
+        <div class="menu-icon"><i class="ti ti-cpu" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Майнинг</div>
+          <div class="menu-sub">Каталог и аренда оборудования</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+
+      <div class="menu-item" onclick="location.href='about.html'">
+        <div class="menu-icon"><i class="ti ti-building-bank" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">О нас</div>
+          <div class="menu-sub">HashRent Kazakhstan</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+
+      <div class="menu-item" onclick="location.href='contract.html'">
+        <div class="menu-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Договор</div>
+          <div class="menu-sub">Условия аренды и оферта</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+
+      <div class="menu-item" onclick="location.href='support.html'">
+        <div class="menu-icon"><i class="ti ti-headset" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Поддержка</div>
+          <div class="menu-sub">Помощь 24/7</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+
+      <div class="menu-item" onclick="location.href='more.html'">
+        <div class="menu-icon"><i class="ti ti-settings" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Настройки</div>
+          <div class="menu-sub">Профиль и безопасность</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+
+    </div>
+  </div><!-- /screen-home -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN: MINING
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-mining">
+
+    <div class="topbar">
+      <button class="topbar-back" onclick="navigate('home')" aria-label="Назад">
+        <i class="ti ti-arrow-left" style="font-size:20px"></i>
+      </button>
+      <span class="topbar-title">Майнинг</span>
+      <span class="badge badge-green">
+        <i class="ti ti-circle-check" style="font-size:11px"></i> Онлайн
+      </span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" id="tab-buy" onclick="switchTab('buy')">
+        Купить майнеры
+      </button>
+      <button class="tab" id="tab-my" onclick="switchTab('my')">
+        Мои майнеры <span id="my-count"></span>
+      </button>
+    </div>
+
+    <!-- Panel: Catalog -->
+    <div id="panel-buy"></div>
+
+    <!-- Panel: My miners -->
+    <div id="panel-my" style="display:none"></div>
+
+  </div><!-- /screen-mining -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN: PROFILE
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-profile">
+
+    <div class="topbar">
+      <button class="topbar-back" onclick="navigate('home')" aria-label="Назад">
+        <i class="ti ti-arrow-left" style="font-size:20px"></i>
+      </button>
+      <span class="topbar-title">Профиль</span>
+      <div></div>
+    </div>
+
+    <!-- Avatar block -->
+    <div class="profile-card">
+      <div class="avatar avatar-lg" id="prof-av">АН</div>
+      <div class="profile-name" id="prof-name">—</div>
+      <div class="profile-uid"  id="prof-uid">HR-000000</div>
+      <span class="badge badge-gold">
+        <i class="ti ti-star" style="font-size:11px"></i> Gold пользователь
+      </span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Арендовано</div>
+        <div class="stat-val" id="s-rented">0</div>
+        <div class="stat-sub">устройств</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Заработано</div>
+        <div class="stat-val gold-text" id="s-earned">$0.00</div>
+        <div class="stat-sub">всего</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Баланс</div>
+        <div class="stat-val" id="s-balance">$0.00</div>
+        <div class="stat-sub">доступно</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Транзакций</div>
+        <div class="stat-val" id="s-txcount">0</div>
+        <div class="stat-sub">операций</div>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="padded mb-12">
+      <div class="data-list">
+        <div class="data-row">
+          <div class="data-row-left">
+            <i class="ti ti-mail" style="font-size:17px" aria-hidden="true"></i>
+            <span class="data-row-label">Email</span>
+          </div>
+          <span class="data-row-val" id="prof-email">—</span>
+        </div>
+        <div class="data-row">
+          <div class="data-row-left">
+            <i class="ti ti-phone" style="font-size:17px" aria-hidden="true"></i>
+            <span class="data-row-label">Телефон</span>
+          </div>
+          <span class="data-row-val" id="prof-phone">—</span>
+        </div>
+        <div class="data-row">
+          <div class="data-row-left">
+            <i class="ti ti-map-pin" style="font-size:17px" aria-hidden="true"></i>
+            <span class="data-row-label">Регион</span>
+          </div>
+          <span class="data-row-val" id="prof-region">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent transactions -->
+    <div class="padded">
+      <div class="section-label" style="padding:0 0 8px">Последние транзакции</div>
+      <div class="tx-card" id="prof-tx-list">
+        <p class="tx-empty">Транзакций пока нет</p>
+      </div>
+    </div>
+
+  </div><!-- /screen-profile -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN: WITHDRAW
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-withdraw">
+
+    <div class="topbar">
+      <button class="topbar-back" onclick="navigate('home')" aria-label="Назад">
+        <i class="ti ti-arrow-left" style="font-size:20px"></i>
+      </button>
+      <span class="topbar-title">Вывод средств</span>
+      <div></div>
+    </div>
+
+    <!-- Available balance -->
+    <div class="balance-card">
+      <div class="balance-label">Доступно для вывода</div>
+      <div class="balance-amount" id="wd-bal">$0.00</div>
+      <div class="balance-sub">Минимум $10 · Комиссия сети $1</div>
+    </div>
+
+    <!-- Withdraw form -->
+    <div class="withdraw-card">
+      <div class="withdraw-title">Способ вывода</div>
+
+      <div class="method-grid">
+        <div class="method-btn sel" id="m-crypto" onclick="selectMethod('crypto')">
+          <i class="ti ti-currency-bitcoin" aria-hidden="true"></i>
+          <span>Криптовалюта</span>
+        </div>
+        <div class="method-btn" id="m-bank" onclick="selectMethod('bank')">
+          <i class="ti ti-building-bank" aria-hidden="true"></i>
+          <span>Банк SWIFT</span>
+        </div>
+      </div>
+
+      <div class="inp-group">
+        <label class="inp-label" id="wd-addr-label" for="wd-addr">
+          Адрес кошелька USDT (TRC-20)
+        </label>
+        <input class="inp" type="text" id="wd-addr"
+               placeholder="Txxxxxxxxxxxxxxxxxxxxxxx"
+               autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="inp-group">
+        <label class="inp-label" for="wd-sum">Сумма ($)</label>
+        <input class="inp" type="number" id="wd-sum"
+               placeholder="0.00" min="10" step="0.01">
+      </div>
+
+      <div class="fee-note">
+        <i class="ti ti-info-circle"
+           style="font-size:13px;vertical-align:-2px;margin-right:4px"
+           aria-hidden="true"></i>
+        Комиссия $1 удерживается автоматически · Зачисление 1–24 часа
+      </div>
+
+      <button class="btn-gold" onclick="doWithdraw()">
+        Вывести средства
+      </button>
+    </div>
+
+    <!-- Transaction history -->
+    <div class="padded">
+      <div class="section-label" style="padding:0 0 8px">История транзакций</div>
+      <div class="tx-card" id="tx-list">
+        <p class="tx-empty">Транзакций пока нет</p>
+      </div>
+    </div>
+
+  </div><!-- /screen-withdraw -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN: MORE
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-more">
+
+    <div class="topbar">
+      <button class="topbar-back" onclick="navigate('home')" aria-label="Назад">
+        <i class="ti ti-arrow-left" style="font-size:20px"></i>
+      </button>
+      <span class="topbar-title">Ещё</span>
+      <div></div>
+    </div>
+
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Безопасность</div>
+          <div class="menu-sub">2FA и смена пароля</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Реферальная программа</div>
+          <div class="menu-sub">Зарабатывайте вместе</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon"><i class="ti ti-help-circle" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">FAQ</div>
+          <div class="menu-sub">Ответы на частые вопросы</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon"><i class="ti ti-news" aria-hidden="true"></i></div>
+        <div class="menu-text">
+          <div class="menu-title">Новости</div>
+          <div class="menu-sub">Обновления платформы</div>
+        </div>
+        <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+      </div>
+    </div>
+
+  </div><!-- /screen-more -->
+
+
+  <!-- ══════════════════════════════════════════════
+       BOTTOM NAVIGATION
+  ══════════════════════════════════════════════ -->
+  <nav class="bottom-bar" aria-label="Навигация">
+    <button class="bar-btn active" id="nav-home"
+            onclick="navigate('home')" aria-label="Главная">
+      <i class="ti ti-home" aria-hidden="true"></i>
+      Главная
+    </button>
+    <button class="bar-btn" id="nav-mining"
+            onclick="navigate('mining')" aria-label="Майнинг">
+      <i class="ti ti-cpu" aria-hidden="true"></i>
+      Майнинг
+    </button>
+    <button class="bar-btn" id="nav-withdraw"
+            onclick="navigate('withdraw')" aria-label="Вывод">
+      <i class="ti ti-arrow-bar-up" aria-hidden="true"></i>
+      Вывод
+    </button>
+    <button class="bar-btn" id="nav-profile"
+            onclick="navigate('profile')" aria-label="Профиль">
+      <i class="ti ti-user" aria-hidden="true"></i>
+      Профиль
+    </button>
+    <button class="bar-btn" id="nav-more"
+            onclick="navigate('more')" aria-label="Ещё">
+      <i class="ti ti-dots" aria-hidden="true"></i>
+      Ещё
+    </button>
+  </nav>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</div><!-- /app -->
+
+<!--
+  Порядок загрузки КРИТИЧЕН:
+  1. script.js  — ядро, инициализирует window.HR до DOMContentLoaded
+  2. mining.js  — читает window.HR, экспортирует window.MINERS
+  3. profile.js — читает window.HR
+  4. withdraw.js — читает window.HR
+-->
+<script src="script.js"></script>
+<script src="mining.js"></script>
+<script src="profile.js"></script>
+<script src="withdraw.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <title>Договор — HashRent</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contract-hero {
+      margin: 8px 14px 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contract-hero-icon {
+      width: 54px; height: 54px;
+      border-radius: var(--r-sm);
+      background: var(--gold-dim);
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold2); font-size: 28px; flex-shrink: 0;
+    }
+    .contract-hero-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .contract-hero-sub   { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+    .toc-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin: 0 14px 14px;
+    }
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-item:hover { background: var(--gold-dim); }
+    .toc-num { font-size: 11px; color: var(--gold2); font-weight: 700; margin-right: 10px; min-width: 20px; }
+    .toc-label { font-size: 13px; color: var(--text); flex: 1; }
+    .toc-arrow { color: var(--text3); font-size: 14px; }
+
+    .section-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      margin: 0 14px 10px;
+      overflow: hidden;
+    }
+    .section-block-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .section-block-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--gold2);
+      flex-shrink: 0;
+    }
+    .section-block-title { font-size: 13px; font-weight: 700; color: var(--text); }
+    .section-block-body  { padding: 14px; }
+    .section-block-body p {
+      font-size: 12px; color: var(--text2); line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .section-block-body p:last-child { margin-bottom: 0; }
+    .section-block-body strong { color: var(--text); font-weight: 600; }
+
+    .clause {
+      display: flex; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .clause-num { font-size: 12px; color: var(--gold2); font-weight: 700; flex-shrink: 0; min-width: 28px; }
+    .clause-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+    .highlight-box {
+      background: var(--gold-dim);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-xs);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .highlight-box p {
+      font-size: 12px; color: var(--text2); line-height: 1.6; margin: 0 !important;
+    }
+
+    .sign-card {
+      margin: 14px 14px 0;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: var(--r);
+      padding: 20px;
+      text-align: center;
+    }
+    .sign-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .sign-sub   { font-size: 12px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
+    .sign-date  { font-size: 11px; color: var(--text3); margin-top: 10px; }
+
+    .accepted-banner {
+      display: none;
+      background: var(--success-bg);
+      border: 1px solid var(--success);
+      border-radius: var(--r-xs);
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--success);
+      font-weight: 600;
+      text-align: center;
+    }
+    .accepted-banner.show { display: block; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="topbar-back" onclick="history.back()" aria-label="Назад">
+      <i class="ti ti-arrow-left" style="font-size:20px"></i>
+    </button>
+    <span class="topbar-title">Договор оферты</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="contract-hero">
+    <div class="contract-hero-icon">
+      <i class="ti ti-file-certificate" aria-hidden="true"></i>
+    </div>
+    <div>
+      <div class="contract-hero-title">Публичная оферта</div>
+      <div class="contract-hero-sub">
+        HashRent LLP · Версия 3.1<br>
+        Вступила в силу: 1 января 2024 г.
+      </div>
+    </div>
+  </div>
+
+  <!-- Table of contents -->
+  <div class="section-label">Содержание</div>
+  <div class="toc-card">
+    <div class="toc-item"><span class="toc-num">1</span><span class="toc-label">Общие положения</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">2</span><span class="toc-label">Предмет договора</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">3</span><span class="toc-label">Условия аренды</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">4</span><span class="toc-label">Права и обязанности</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">5</span><span class="toc-label">Доходность и выплаты</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">6</span><span class="toc-label">Ответственность сторон</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">7</span><span class="toc-label">Конфиденциальность</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+    <div class="toc-item"><span class="toc-num">8</span><span class="toc-label">Заключительные положения</span><i class="ti ti-chevron-right toc-arrow"></i></div>
+  </div>
+
+  <!-- Sections -->
+  <div class="section-label">Текст договора</div>
+
+  <div class="section-block">
+    <div class="section-block-header">
+      <div class="section-block-num">1</div>
+      <div class="section-block-title">Общие положения</div>
+    </div>
+    <div class="section-block-body">
+      <div class="clause"><span class="clause-num">1.1</span><span class="clause-text">Настоящий договор является публичной офертой ТОО «HashRent» (далее — Компания) и регулирует отношения между Компанией и Пользователем платформы.</span></div>
+      <div class="clause"><span class="clause-num">1.2</span><span class="clause-text">Акцептом оферты считается регистрация на платформе и/или первое пополнение счёта Пользователя.</span></div>
+      <div class="clause"><span class="clause-num">1.3</span><span class="clause-text">Компания зарегистрирована в Республике Казахстан и действует в соответствии с законодательством РК о цифровых активах.</span></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-block-header">
+      <div class="section-block-num">2</div>
+      <div class="section-block-title">Предмет договора</div>
+    </div>
+    <div class="section-block-body">
+      <div class="clause"><span class="clause-num">2.1</span><span class="clause-text">Компания предоставляет Пользователю право на временное использование вычислительных мощностей ASIC-оборудования для добычи криптовалюты.</span></div>
+      <div class="clause"><span class="clause-num">2.2</span><span class="clause-text">Оборудование физически находится в дата-центрах Компании. Пользователь не имеет физического доступа к устройствам.</span></div>
+      <div class="clause"><span class="clause-num">2.3</span><span class="clause-text">Добытая криптовалюта конвертируется по рыночному курсу и зачисляется на баланс Пользователя в USD-эквиваленте.</span></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-block-header">
+      <div class="section-block-num">3</div>
+      <div class="section-block-title">Условия аренды</div>
+    </div>
+    <div class="section-block-body">
+      <div class="highlight-box">
+        <p><strong style="color:var(--gold2)">Важно:</strong> Доход не гарантируется и зависит от сложности сети, курса криптовалюты и других рыночных факторов. Указанные показатели доходности — ориентировочные.</p>
+      </div>
+      <div class="clause"><span class="clause-num">3.1</span><span class="clause-text">Срок аренды выбирается Пользователем из доступных периодов: 24 часа, 48 часов, 72 часа, 7 дней, 30 дней.</span></div>
+      <div class="clause"><span class="clause-num">3.2</span><span class="clause-text">Оплата аренды списывается с баланса Пользователя в момент активации майнера.</span></div>
+      <div class="clause"><span class="clause-num">3.3</span><span class="clause-text">По истечении срока аренды цикл автоматически перезапускается при наличии достаточного баланса.</span></div>
+      <div class="clause"><span class="clause-num">3.4</span><span class="clause-text">Одновременно активных майнеров: не более 5 на одного Пользователя.</span></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-block-header">
+      <div class="section-block-num">5</div>
+      <div class="section-block-title">Доходность и выплаты</div>
+    </div>
+    <div class="section-block-body">
+      <div class="clause"><span class="clause-num">5.1</span><span class="clause-text">Доход начисляется по завершении арендного цикла и становится доступным для вывода.</span></div>
+      <div class="clause"><span class="clause-num">5.2</span><span class="clause-text">Минимальная сумма вывода: <strong>$10</strong>. Комиссия за вывод: <strong>$1</strong> с каждой заявки.</span></div>
+      <div class="clause"><span class="clause-num">5.3</span><span class="clause-text">Вывод средств обрабатывается в течение 1–24 часов после подачи заявки.</span></div>
+      <div class="clause"><span class="clause-num">5.4</span><span class="clause-text">Компания вправе запросить верификацию личности при выводе сумм свыше $1 000.</span></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-block-header">
+      <div class="section-block-num">6</div>
+      <div class="section-block-title">Ответственность сторон</div>
+    </div>
+    <div class="section-block-body">
+      <div class="clause"><span class="clause-num">6.1</span><span class="clause-text">Компания не несёт ответственности за убытки, вызванные волатильностью рынка криптовалют.</span></div>
+      <div class="clause"><span class="clause-num">6.2</span><span class="clause-text">В случае технического сбоя оборудования Компания обязуется восстановить работу в течение 24 часов и компенсировать упущенное время аренды.</span></div>
+      <div class="clause"><span class="clause-num">6.3</span><span class="clause-text">Пользователь несёт ответственность за сохранность своих учётных данных и реквизитов для вывода.</span></div>
+    </div>
+  </div>
+
+  <!-- Sign block -->
+  <div class="sign-card">
+    <div class="sign-title">Принять договор</div>
+    <div class="sign-sub">Нажимая кнопку, вы подтверждаете, что ознакомились с условиями оферты и принимаете их в полном объёме.</div>
+    <button class="btn-gold" onclick="acceptContract()" id="accept-btn">
+      <i class="ti ti-check" style="font-size:14px;vertical-align:-2px"></i>
+      Принять и продолжить
+    </button>
+    <div class="accepted-banner" id="accepted-banner">
+      <i class="ti ti-circle-check" style="font-size:14px;vertical-align:-2px"></i>
+      Договор принят · Дата принятия сохранена
+    </div>
+    <div class="sign-date" id="sign-date"></div>
+  </div>
+
+  <div style="height:14px"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-bar">
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Главная">
+      <i class="ti ti-home" aria-hidden="true"></i>Главная
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Майнинг">
+      <i class="ti ti-cpu" aria-hidden="true"></i>Майнинг
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Вывод">
+      <i class="ti ti-arrow-bar-up" aria-hidden="true"></i>Вывод
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Профиль">
+      <i class="ti ti-user" aria-hidden="true"></i>Профиль
+    </button>
+    <button class="bar-btn active" aria-label="Ещё">
+      <i class="ti ti-dots" aria-hidden="true"></i>Ещё
+    </button>
+  </nav>
+
+</div>
+<script>
+  const t = localStorage.getItem('hr_theme') || 'dark';
+  const map = { dark: '', light: 'theme-light', pure: 'theme-pure' };
+  document.body.className = map[t] || '';
+
+  // Show accepted state if already signed
+  const signed = localStorage.getItem('hr_contract_signed');
+  if (signed) {
+    document.getElementById('accepted-banner').classList.add('show');
+    document.getElementById('accept-btn').disabled = true;
+    document.getElementById('accept-btn').textContent = 'Договор принят';
+    document.getElementById('sign-date').textContent = 'Дата подписания: ' + signed;
+  }
+
+  function acceptContract() {
+    const now = new Date().toLocaleString('ru-RU', {
+      day: 'numeric', month: 'long', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+    localStorage.setItem('hr_contract_signed', now);
+    document.getElementById('accepted-banner').classList.add('show');
+    document.getElementById('accept-btn').disabled = true;
+    document.getElementById('accept-btn').textContent = 'Договор принят';
+    document.getElementById('sign-date').textContent = 'Дата подписания: ' + now;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <title>Ещё — HashRent</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ref-card {
+      margin: 8px 14px 14px;
+      background: linear-gradient(135deg, #1A1500 0%, #2A2000 100%);
+      border: 1px solid var(--border2);
+      border-radius: var(--r);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ref-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ref-title { font-size: 15px; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
+    .ref-sub   { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 14px; }
+    .ref-link-box {
+      background: rgba(0,0,0,.3);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-sm);
+      padding: 10px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .ref-link-text { font-size: 12px; color: var(--gold2); font-family: monospace; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ref-copy-btn  { background: var(--gold-dim); border: 1px solid var(--border2); border-radius: var(--r-xs); padding: 5px 10px; font-size: 11px; font-weight: 600; color: var(--gold2); cursor: pointer; flex-shrink: 0; transition: background .15s; white-space: nowrap; }
+    .ref-copy-btn:hover { background: rgba(212,175,55,.25); }
+    .ref-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .ref-stat  { background: rgba(0,0,0,.3); border-radius: var(--r-xs); padding: 10px 8px; text-align: center; }
+    .ref-stat-num   { font-size: 18px; font-weight: 700; color: var(--gold2); }
+    .ref-stat-label { font-size: 10px; color: var(--text2); margin-top: 2px; }
+
+    .security-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 14px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 8px;
+    }
+    .security-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold2); font-size: 20px; flex-shrink: 0;
+    }
+    .security-text { flex: 1; }
+    .security-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .security-sub   { font-size: 11px; color: var(--text2); }
+    .toggle-wrap { flex-shrink: 0; }
+    .toggle {
+      width: 44px; height: 24px;
+      background: var(--bg4); border-radius: 12px;
+      position: relative; cursor: pointer;
+      transition: background .25s; border: 1px solid var(--border);
+    }
+    .toggle.on { background: var(--gold3); }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--text3);
+      transition: transform .25s, background .25s;
+    }
+    .toggle.on::after { transform: translateX(20px); background: var(--gold2); }
+
+    .news-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .news-card:hover { border-color: var(--border2); }
+    .news-tag   { font-size: 10px; font-weight: 700; color: var(--gold2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+    .news-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+    .news-desc  { font-size: 11px; color: var(--text2); line-height: 1.5; margin-bottom: 8px; }
+    .news-date  { font-size: 11px; color: var(--text3); }
+
+    .theme-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      margin: 0 14px 14px;
+      padding: 16px;
+    }
+    .theme-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .theme-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .theme-opt {
+      background: var(--bg3);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .theme-opt.active { border-color: var(--gold2); background: var(--gold-dim); }
+    .theme-opt-swatch {
+      width: 28px; height: 28px; border-radius: 50%;
+      margin: 0 auto 6px;
+      border: 2px solid rgba(255,255,255,.1);
+    }
+    .theme-opt-label { font-size: 11px; font-weight: 600; color: var(--text2); }
+    .theme-opt.active .theme-opt-label { color: var(--gold2); }
+
+    .logout-btn {
+      width: calc(100% - 28px);
+      margin: 0 14px 14px;
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+      border-radius: var(--r-sm);
+      padding: 13px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .logout-btn:hover { background: rgba(255,92,92,.2); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="topbar-back" onclick="location.href='index.html'" aria-label="Назад">
+      <i class="ti ti-arrow-left" style="font-size:20px"></i>
+    </button>
+    <span class="topbar-title">Ещё</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <!-- Referral -->
+  <div class="section-label">Реферальная программа</div>
+  <div class="ref-card">
+    <div class="ref-title">Приглашайте — зарабатывайте</div>
+    <div class="ref-sub">Получайте <strong style="color:var(--gold2)">10%</strong> от дохода каждого приглашённого друга навсегда.</div>
+    <div class="ref-link-box">
+      <span class="ref-link-text" id="ref-link">hashrent.kz/ref/HR-000000</span>
+      <button class="ref-copy-btn" onclick="copyRef()">
+        <i class="ti ti-copy" style="font-size:12px;vertical-align:-1px"></i> Копировать
+      </button>
+    </div>
+    <div class="ref-stats">
+      <div class="ref-stat">
+        <div class="ref-stat-num" id="ref-invited">0</div>
+        <div class="ref-stat-label">Приглашено</div>
+      </div>
+      <div class="ref-stat">
+        <div class="ref-stat-num" id="ref-active">0</div>
+        <div class="ref-stat-label">Активных</div>
+      </div>
+      <div class="ref-stat">
+        <div class="ref-stat-num" id="ref-earned">$0</div>
+        <div class="ref-stat-label">Заработано</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security -->
+  <div class="section-label">Безопасность</div>
+  <div class="padded" style="margin-bottom:14px">
+
+    <div class="security-item">
+      <div class="security-icon"><i class="ti ti-lock" aria-hidden="true"></i></div>
+      <div class="security-text">
+        <div class="security-title">Двухфакторная аутентификация</div>
+        <div class="security-sub">Защита входа через Telegram или Google Authenticator</div>
+      </div>
+      <div class="toggle-wrap">
+        <div class="toggle" id="toggle-2fa" onclick="toggleSecurity('2fa')"></div>
+      </div>
+    </div>
+
+    <div class="security-item">
+      <div class="security-icon"><i class="ti ti-bell-ringing" aria-hidden="true"></i></div>
+      <div class="security-text">
+        <div class="security-title">Уведомления о входе</div>
+        <div class="security-sub">Push при каждом новом входе в аккаунт</div>
+      </div>
+      <div class="toggle-wrap">
+        <div class="toggle on" id="toggle-notify" onclick="toggleSecurity('notify')"></div>
+      </div>
+    </div>
+
+    <div class="security-item">
+      <div class="security-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+      <div class="security-text">
+        <div class="security-title">Подтверждение вывода по SMS</div>
+        <div class="security-sub">Дополнительная защита при выводе средств</div>
+      </div>
+      <div class="toggle-wrap">
+        <div class="toggle on" id="toggle-sms" onclick="toggleSecurity('sms')"></div>
+      </div>
+    </div>
+
+    <div class="menu-item" style="margin-bottom:0" onclick="alert('Смена пароля — в разработке')">
+      <div class="menu-icon"><i class="ti ti-key" aria-hidden="true"></i></div>
+      <div class="menu-text">
+        <div class="menu-title">Сменить пароль</div>
+        <div class="menu-sub">Последнее изменение: 3 месяца назад</div>
+      </div>
+      <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <!-- Theme -->
+  <div class="section-label">Оформление</div>
+  <div class="theme-section">
+    <div class="theme-title">Тема приложения</div>
+    <div class="theme-options">
+      <div class="theme-opt" id="opt-dark" onclick="setTheme('dark')">
+        <div class="theme-opt-swatch" style="background:#1A1A24;border-color:#D4AF37"></div>
+        <div class="theme-opt-label">Gold Dark</div>
+      </div>
+      <div class="theme-opt" id="opt-light" onclick="setTheme('light')">
+        <div class="theme-opt-swatch" style="background:#F0F0F5;border-color:#B8962E"></div>
+        <div class="theme-opt-label">Light</div>
+      </div>
+      <div class="theme-opt" id="opt-pure" onclick="setTheme('pure')">
+        <div class="theme-opt-swatch" style="background:#000;border-color:#F5C542"></div>
+        <div class="theme-opt-label">Pure Dark</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- News -->
+  <div class="section-label">Новости платформы</div>
+  <div class="padded" style="margin-bottom:14px">
+
+    <div class="news-card">
+      <div class="news-tag">🔥 Новинка</div>
+      <div class="news-title">Добавлен Antminer S21 Hyd — самый мощный майнер в каталоге</div>
+      <div class="news-desc">335 TH/s с жидкостным охлаждением. ROI цикла 48 часов — 122%.</div>
+      <div class="news-date">28 мая 2025</div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-tag">📊 Обновление</div>
+      <div class="news-title">Обновлены ставки доходности для всех майнеров</div>
+      <div class="news-desc">Скорректированы в соответствии с текущей сложностью сети BTC и курсом.</div>
+      <div class="news-date">20 мая 2025</div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-tag">💳 Финансы</div>
+      <div class="news-title">Добавлена поддержка вывода через SWIFT/IBAN</div>
+      <div class="news-desc">Теперь можно выводить средства напрямую на банковский счёт в тенге или USD.</div>
+      <div class="news-date">12 мая 2025</div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-tag">🛡 Безопасность</div>
+      <div class="news-title">Пройдена аудиторская проверка Smart Security Labs</div>
+      <div class="news-desc">Платформа получила оценку A+ по безопасности инфраструктуры.</div>
+      <div class="news-date">5 мая 2025</div>
+    </div>
+
+  </div>
+
+  <!-- Quick links -->
+  <div class="section-label">Дополнительно</div>
+  <div class="padded" style="margin-bottom:14px">
+    <div class="menu-item" onclick="location.href='about.html'">
+      <div class="menu-icon"><i class="ti ti-building-bank" aria-hidden="true"></i></div>
+      <div class="menu-text"><div class="menu-title">О компании</div><div class="menu-sub">HashRent Kazakhstan</div></div>
+      <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+    </div>
+    <div class="menu-item" onclick="location.href='contract.html'">
+      <div class="menu-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+      <div class="menu-text"><div class="menu-title">Договор оферты</div><div class="menu-sub">Условия использования</div></div>
+      <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+    </div>
+    <div class="menu-item" onclick="location.href='support.html'">
+      <div class="menu-icon"><i class="ti ti-headset" aria-hidden="true"></i></div>
+      <div class="menu-text"><div class="menu-title">Поддержка</div><div class="menu-sub">FAQ и обращения</div></div>
+      <i class="ti ti-chevron-right menu-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <!-- Logout -->
+  <button class="logout-btn" onclick="confirmLogout()">
+    <i class="ti ti-logout" aria-hidden="true"></i>
+    Выйти из аккаунта
+  </button>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-bar">
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Главная">
+      <i class="ti ti-home" aria-hidden="true"></i>Главная
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Майнинг">
+      <i class="ti ti-cpu" aria-hidden="true"></i>Майнинг
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Вывод">
+      <i class="ti ti-arrow-bar-up" aria-hidden="true"></i>Вывод
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Профиль">
+      <i class="ti ti-user" aria-hidden="true"></i>Профиль
+    </button>
+    <button class="bar-btn active" aria-label="Ещё">
+      <i class="ti ti-dots" aria-hidden="true"></i>Ещё
+    </button>
+  </nav>
+
+</div>
+<script>
+  // Theme
+  const savedTheme = localStorage.getItem('hr_theme') || 'dark';
+  const themeMap   = { dark: '', light: 'theme-light', pure: 'theme-pure' };
+  document.body.className = themeMap[savedTheme] || '';
+  document.getElementById('opt-' + savedTheme)?.classList.add('active');
+
+  function setTheme(t) {
+    localStorage.setItem('hr_theme', t);
+    document.body.className = themeMap[t] || '';
+    document.querySelectorAll('.theme-opt').forEach(el => el.classList.remove('active'));
+    document.getElementById('opt-' + t)?.classList.add('active');
+  }
+
+  // Referral link
+  const user = JSON.parse(localStorage.getItem('hr_user') || '{}');
+  const uid  = user.id || 'HR-000000';
+  document.getElementById('ref-link').textContent = 'hashrent.kz/ref/' + uid;
+
+  function copyRef() {
+    const link = 'hashrent.kz/ref/' + uid;
+    navigator.clipboard?.writeText(link).catch(() => {});
+    const btn = document.querySelector('.ref-copy-btn');
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy" style="font-size:12px;vertical-align:-1px"></i> Копировать'; }, 2000);
+  }
+
+  // Security toggles
+  const sec = JSON.parse(localStorage.getItem('hr_security') || '{"2fa":false,"notify":true,"sms":true}');
+  function renderToggles() {
+    Object.keys(sec).forEach(k => {
+      const el = document.getElementById('toggle-' + k);
+      if (el) el.classList.toggle('on', sec[k]);
+    });
+  }
+  function toggleSecurity(k) {
+    sec[k] = !sec[k];
+    localStorage.setItem('hr_security', JSON.stringify(sec));
+    renderToggles();
+  }
+  renderToggles();
+
+  // Logout
+  function confirmLogout() {
+    if (confirm('Выйти из аккаунта? Данные сохранятся.')) {
+      location.href = 'index.html';
+    }
+  }
+</script>
+</body>
+</html>

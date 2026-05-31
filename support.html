@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <title>Поддержка — HashRent</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .support-hero {
+      margin: 8px 14px 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .support-hero i { font-size: 40px; color: var(--gold2); display: block; margin-bottom: 10px; }
+    .support-hero-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .support-hero-sub   { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .response-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--success-bg);
+      border: 1px solid var(--success);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 600; color: var(--success);
+      margin-top: 10px;
+    }
+    .response-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--success);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .3; }
+    }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 0 14px;
+      margin-bottom: 14px;
+    }
+    .channel-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+      text-decoration: none;
+      display: block;
+    }
+    .channel-card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+    .channel-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+    .channel-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .channel-time { font-size: 11px; color: var(--text2); }
+    .channel-card.tg  .channel-icon { color: #29B6F6; }
+    .channel-card.wa  .channel-icon { color: #4CAF50; }
+    .channel-card.mail .channel-icon { color: var(--gold2); }
+    .channel-card.chat .channel-icon { color: #AB47BC; }
+
+    /* FAQ Accordion */
+    .faq-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      margin-bottom: 6px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .faq-item.open { border-color: var(--border2); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .faq-q-text { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; padding-right: 10px; line-height: 1.4; }
+    .faq-arrow  { color: var(--text3); font-size: 18px; flex-shrink: 0; transition: transform .25s; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--gold2); }
+    .faq-a {
+      display: none;
+      padding: 0 14px 14px;
+      font-size: 12px; color: var(--text2);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* Ticket form */
+    .ticket-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      margin: 0 14px 14px;
+      padding: 18px;
+    }
+    .ticket-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .ticket-sub   { font-size: 12px; color: var(--text2); margin-bottom: 16px; }
+    .select-inp {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 11px 14px;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      font-family: inherit;
+      transition: border-color .2s;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .select-inp:focus { border-color: var(--gold2); }
+    .textarea-inp {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 11px 14px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      font-family: inherit;
+      transition: border-color .2s;
+      resize: none;
+      min-height: 90px;
+      line-height: 1.5;
+    }
+    .textarea-inp::placeholder { color: var(--text3); }
+    .textarea-inp:focus { border-color: var(--gold2); }
+
+    .sent-state {
+      display: none;
+      text-align: center;
+      padding: 20px 0 6px;
+    }
+    .sent-state i   { font-size: 40px; color: var(--success); display: block; margin-bottom: 8px; }
+    .sent-state p   { font-size: 13px; color: var(--text2); line-height: 1.5; }
+    .sent-state.show { display: block; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="topbar-back" onclick="history.back()" aria-label="Назад">
+      <i class="ti ti-arrow-left" style="font-size:20px"></i>
+    </button>
+    <span class="topbar-title">Поддержка</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="support-hero">
+    <i class="ti ti-headset" aria-hidden="true"></i>
+    <div class="support-hero-title">Мы всегда на связи</div>
+    <div class="support-hero-sub">Среднее время ответа — 15 минут.<br>Работаем круглосуточно, 7 дней в неделю.</div>
+    <div class="response-badge">
+      <div class="response-dot"></div>
+      Поддержка онлайн
+    </div>
+  </div>
+
+  <!-- Channels -->
+  <div class="section-label">Способы связи</div>
+  <div class="channel-grid">
+    <a class="channel-card tg" href="https://t.me/hashrent_support" target="_blank">
+      <i class="ti ti-brand-telegram channel-icon" aria-hidden="true"></i>
+      <div class="channel-name">Telegram</div>
+      <div class="channel-time">Ответ ~5 мин</div>
+    </a>
+    <a class="channel-card wa" href="https://wa.me/77001234567" target="_blank">
+      <i class="ti ti-brand-whatsapp channel-icon" aria-hidden="true"></i>
+      <div class="channel-name">WhatsApp</div>
+      <div class="channel-time">Ответ ~15 мин</div>
+    </a>
+    <a class="channel-card mail" href="mailto:support@hashrent.kz">
+      <i class="ti ti-mail channel-icon" aria-hidden="true"></i>
+      <div class="channel-name">Email</div>
+      <div class="channel-time">Ответ ~2 часа</div>
+    </a>
+    <div class="channel-card chat" onclick="alert('Чат скоро будет доступен')">
+      <i class="ti ti-message-circle channel-icon" aria-hidden="true"></i>
+      <div class="channel-name">Live чат</div>
+      <div class="channel-time">Скоро</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-label">Частые вопросы</div>
+  <div class="padded" style="margin-bottom:14px" id="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Как начать зарабатывать на платформе?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Пополните баланс, перейдите в раздел «Майнинг», выберите подходящий ASIC-майнер и нажмите «Арендовать». Устройство запустится автоматически. По истечении цикла нажмите «Получить доход».</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Гарантирован ли указанный доход?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Показатели доходности ориентировочные и рассчитаны на основе текущей сложности сети и курса криптовалюты. Реальный доход может отличаться. Мы рекомендуем воспринимать цифры как прогноз, а не гарантию.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Как вывести заработанные средства?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Перейдите в раздел «Вывод», укажите адрес USDT (TRC-20) или реквизиты банка, введите сумму (минимум $10) и нажмите «Вывести». Средства зачисляются в течение 1–24 часов. Комиссия — $1 с заявки.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Сколько майнеров можно арендовать одновременно?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Стандартный аккаунт позволяет держать до 5 активных майнеров одновременно. При переходе на тариф Gold+ лимит увеличивается до 20 устройств.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Что происходит после окончания цикла?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">По истечении срока аренды майнер переходит в статус «Готово». Вам нужно нажать «Получить доход» — средства зачислятся на баланс, а цикл автоматически перезапустится.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Безопасна ли платформа?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Да. HashRent лицензирован МЦРИАП РК, является участником AIFC и имеет сертификат ISO 27001. Средства пользователей хранятся в изолированных кошельках. Данные шифруются по стандарту AES-256.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Как пополнить баланс?</span>
+        <i class="ti ti-chevron-down faq-arrow" aria-hidden="true"></i>
+      </div>
+      <div class="faq-a">Пополнение доступно через USDT (TRC-20, ERC-20), BTC, банковский перевод (SWIFT/IBAN) и карты Visa/MasterCard. Минимальный депозит — $10. Средства зачисляются мгновенно для крипто и до 3 дней для банка.</div>
+    </div>
+
+  </div>
+
+  <!-- Ticket form -->
+  <div class="section-label">Написать в поддержку</div>
+  <div class="ticket-card">
+    <div class="ticket-title">Создать обращение</div>
+    <div class="ticket-sub">Опишите проблему, и мы ответим в течение 15 минут</div>
+
+    <div id="ticket-form">
+      <div class="inp-group">
+        <label class="inp-label" for="ticket-type">Тема обращения</label>
+        <select class="select-inp" id="ticket-type">
+          <option value="">Выберите тему…</option>
+          <option>Вопрос по балансу</option>
+          <option>Проблема с майнером</option>
+          <option>Вывод средств</option>
+          <option>Технический вопрос</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="inp-group">
+        <label class="inp-label" for="ticket-msg">Сообщение</label>
+        <textarea class="textarea-inp" id="ticket-msg" placeholder="Опишите вашу проблему подробно…"></textarea>
+      </div>
+      <button class="btn-gold" onclick="sendTicket()">
+        <i class="ti ti-send" style="font-size:13px;vertical-align:-2px"></i>
+        Отправить обращение
+      </button>
+    </div>
+
+    <div class="sent-state" id="sent-state">
+      <i class="ti ti-circle-check" aria-hidden="true"></i>
+      <p><strong style="color:var(--text)">Обращение отправлено!</strong><br>Мы ответим в Telegram или на email<br>в течение 15 минут.</p>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-bar">
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Главная">
+      <i class="ti ti-home" aria-hidden="true"></i>Главная
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Майнинг">
+      <i class="ti ti-cpu" aria-hidden="true"></i>Майнинг
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Вывод">
+      <i class="ti ti-arrow-bar-up" aria-hidden="true"></i>Вывод
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Профиль">
+      <i class="ti ti-user" aria-hidden="true"></i>Профиль
+    </button>
+    <button class="bar-btn active" aria-label="Ещё">
+      <i class="ti ti-dots" aria-hidden="true"></i>Ещё
+    </button>
+  </nav>
+
+</div>
+<script>
+  const t = localStorage.getItem('hr_theme') || 'dark';
+  const map = { dark: '', light: 'theme-light', pure: 'theme-pure' };
+  document.body.className = map[t] || '';
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function sendTicket() {
+    const type = document.getElementById('ticket-type').value;
+    const msg  = document.getElementById('ticket-msg').value.trim();
+    if (!type) { alert('Выберите тему обращения'); return; }
+    if (!msg)  { alert('Введите сообщение'); return; }
+    document.getElementById('ticket-form').style.display = 'none';
+    document.getElementById('sent-state').classList.add('show');
+  }
+</script>
+</body>
+</html>

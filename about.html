@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <title>О нас — HashRent</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      margin: 8px 14px 0;
+      border-radius: var(--r);
+      background: linear-gradient(160deg, #1C1400 0%, #2E2200 45%, #1A1200 100%);
+      border: 1px solid var(--border2);
+      padding: 32px 20px 26px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-logo {
+      font-size: 42px; font-weight: 900; letter-spacing: -2px;
+      background: linear-gradient(135deg, #B8962E 0%, #F5C542 50%, #B8962E 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 4px; position: relative;
+    }
+    .hero-sub {
+      font-size: 11px; color: var(--gold3); font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .hero-desc { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 18px; }
+    .hero-badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+
+    /* COUNTER */
+    .counter-banner {
+      margin: 12px 14px 0;
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: var(--r); padding: 16px;
+      position: relative; overflow: hidden;
+    }
+    .counter-banner::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+    }
+    .counter-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .counter-pulse {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--success);
+      box-shadow: 0 0 0 0 rgba(45,212,160,.5); animation: ripple 2s infinite; flex-shrink: 0;
+    }
+    @keyframes ripple {
+      0%  { box-shadow: 0 0 0 0 rgba(45,212,160,.5); }
+      70% { box-shadow: 0 0 0 10px rgba(45,212,160,0); }
+      100%{ box-shadow: 0 0 0 0 rgba(45,212,160,0); }
+    }
+    .counter-title { font-size: 13px; font-weight: 700; color: var(--text); flex: 1; }
+    .counter-since { font-size: 10px; color: var(--text3); }
+    .counter-grid  { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+    .counter-cell  {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--r-xs); padding: 12px 4px; text-align: center;
+    }
+    .counter-val {
+      font-size: 24px; font-weight: 800; color: var(--gold2);
+      font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px;
+    }
+    .counter-lbl { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: .6px; }
+
+    /* BIG STATS */
+    .big-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 14px; margin-bottom: 14px; }
+    .big-stat {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 16px 14px; position: relative; overflow: hidden;
+    }
+    .big-stat::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold3), var(--gold2)); opacity: .6;
+    }
+    .big-stat-icon { font-size: 22px; color: var(--gold2); margin-bottom: 10px; display: block; }
+    .big-stat-num  { font-size: 24px; font-weight: 800; color: var(--gold2); line-height: 1; margin-bottom: 4px; }
+    .big-stat-lbl  { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+    /* MISSION */
+    .mission-card {
+      margin: 0 14px 14px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px;
+    }
+    .mission-heading {
+      font-size: 15px; font-weight: 800; color: var(--text);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .mission-text { font-size: 13px; color: var(--text2); line-height: 1.8; }
+    .mission-text strong { color: var(--gold2); }
+
+    /* FEATURES */
+    .feature-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 15px 14px;
+      display: flex; align-items: flex-start; gap: 13px; margin-bottom: 8px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .feature-card:hover { border-color: var(--border2); box-shadow: 0 0 16px var(--gold-glow); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold2); font-size: 21px; flex-shrink: 0;
+    }
+    .feature-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .feature-desc  { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+    /* FOUNDERS */
+    .founder-card {
+      margin: 0 14px 10px;
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: var(--r); padding: 20px 16px;
+      display: flex; align-items: flex-start; gap: 16px;
+      position: relative; overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .founder-card:hover { box-shadow: 0 0 24px var(--gold-glow); }
+    .founder-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+    }
+    .founder-photo {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold3), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      color: #0B0B0F; font-weight: 900; font-size: 26px;
+      flex-shrink: 0; border: 2.5px solid var(--gold2);
+      position: relative; overflow: hidden;
+    }
+    .founder-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 50%; position: absolute; inset: 0;
+    }
+    .founder-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-dim); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 3px 10px;
+      font-size: 10px; font-weight: 700; color: var(--gold2);
+      margin-bottom: 6px;
+    }
+    .founder-name { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+    .founder-role { font-size: 12px; color: var(--gold2); font-weight: 600; margin-bottom: 8px; }
+    .founder-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .founder-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .founder-tag  {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3px 9px;
+      font-size: 10px; color: var(--text2); font-weight: 500;
+    }
+
+    /* TEAM GRID */
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 14px; margin-bottom: 14px; }
+    .team-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 18px 12px 14px;
+      text-align: center; position: relative; overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .team-card:hover { border-color: var(--border2); box-shadow: 0 0 16px var(--gold-glow); }
+    .team-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold2), transparent); opacity: .6;
+    }
+    .team-photo {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold3), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      color: #0B0B0F; font-weight: 800; font-size: 20px;
+      margin: 0 auto 12px; border: 2px solid var(--gold-glow);
+      position: relative; overflow: hidden;
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: absolute; inset: 0; }
+    .team-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
+    .team-role-badge {
+      display: inline-block;
+      background: var(--gold-dim); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 9px;
+      font-size: 10px; font-weight: 700; color: var(--gold2); margin-bottom: 6px;
+    }
+    .team-exp  { font-size: 11px; color: var(--text2); line-height: 1.4; }
+    .photo-hint { font-size: 9px; color: var(--text3); margin-top: 8px; }
+
+    /* TIMELINE */
+    .timeline { padding: 0 14px; margin-bottom: 14px; }
+    .tl-item  { display: flex; gap: 14px; }
+    .tl-left  { display: flex; flex-direction: column; align-items: center; width: 28px; flex-shrink: 0; }
+    .tl-dot   {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--gold2); border: 2px solid var(--bg);
+      box-shadow: 0 0 10px var(--gold-glow); flex-shrink: 0; margin-top: 3px;
+    }
+    .tl-dot-active { background: var(--success); box-shadow: 0 0 10px rgba(45,212,160,.5); }
+    .tl-line  { width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 24px; }
+    .tl-item:last-child .tl-line { display: none; }
+    .tl-right { padding-bottom: 20px; flex: 1; }
+    .tl-date  { font-size: 11px; color: var(--gold2); font-weight: 700; margin-bottom: 4px; }
+    .tl-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .tl-desc  { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .tl-chip  {
+      display: inline-block; margin-top: 6px;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3px 10px;
+      font-size: 10px; color: var(--success); font-weight: 600;
+    }
+
+    /* CERTS */
+    .cert-row {
+      display: flex; align-items: center; gap: 13px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 13px 14px; margin-bottom: 8px;
+      transition: border-color .2s;
+    }
+    .cert-row:hover { border-color: var(--border2); }
+    .cert-icon-wrap {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold2); font-size: 21px; flex-shrink: 0;
+    }
+    .cert-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .cert-desc  { font-size: 11px; color: var(--text2); }
+    .cert-check { margin-left: auto; color: var(--success); font-size: 18px; flex-shrink: 0; }
+
+    /* CTA */
+    .cta-card {
+      margin: 0 14px 14px;
+      background: linear-gradient(135deg, #1C1400 0%, #2E2200 100%);
+      border: 1px solid var(--border2); border-radius: var(--r);
+      padding: 26px 18px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-card::before {
+      content: ''; position: absolute; top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,.12) 0%, transparent 70%);
+    }
+    .cta-title { font-size: 18px; font-weight: 800; color: var(--gold2); margin-bottom: 8px; position: relative; }
+    .cta-sub   { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 18px; position: relative; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <button class="topbar-back" onclick="history.back()" aria-label="Назад">
+      <i class="ti ti-arrow-left" style="font-size:20px"></i>
+    </button>
+    <span class="topbar-title">О компании</span>
+    <div style="width:32px"></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-logo">HashRent</div>
+    <div class="hero-sub">Kazakhstan · Mining Platform</div>
+    <div class="hero-desc">
+      Ведущая платформа аренды профессионального ASIC-оборудования в Центральной Азии.<br>
+      <strong style="color:var(--gold2)">Ваш пассивный доход — наша работа.</strong>
+    </div>
+    <div class="hero-badges">
+      <span class="badge badge-green"><i class="ti ti-circle-check" style="font-size:11px"></i> Работаем 24/7</span>
+      <span class="badge badge-gold"><i class="ti ti-shield-check" style="font-size:11px"></i> Лицензировано в РК</span>
+      <span class="badge badge-gray"><i class="ti ti-map-pin" style="font-size:11px"></i> Алматы, Казахстан</span>
+    </div>
+  </div>
+
+  <!-- LIVE COUNTER -->
+  <div class="counter-banner">
+    <div class="counter-top">
+      <div class="counter-pulse"></div>
+      <div class="counter-title">Работаем с вами уже</div>
+      <div class="counter-since">с 01 ноября 2025</div>
+    </div>
+    <div class="counter-grid">
+      <div class="counter-cell">
+        <div class="counter-val" id="cnt-days">0</div>
+        <div class="counter-lbl">Дней</div>
+      </div>
+      <div class="counter-cell">
+        <div class="counter-val" id="cnt-hours">00</div>
+        <div class="counter-lbl">Часов</div>
+      </div>
+      <div class="counter-cell">
+        <div class="counter-val" id="cnt-mins">00</div>
+        <div class="counter-lbl">Минут</div>
+      </div>
+      <div class="counter-cell">
+        <div class="counter-val" id="cnt-secs">00</div>
+        <div class="counter-lbl">Секунд</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section-label" style="margin-top:14px">Платформа в цифрах</div>
+  <div class="big-stats">
+    <div class="big-stat">
+      <i class="ti ti-users big-stat-icon" aria-hidden="true"></i>
+      <div class="big-stat-num">3 800+</div>
+      <div class="big-stat-lbl">Активных инвесторов</div>
+    </div>
+    <div class="big-stat">
+      <i class="ti ti-currency-dollar big-stat-icon" aria-hidden="true"></i>
+      <div class="big-stat-num">$2.4M</div>
+      <div class="big-stat-lbl">Выплачено доходов</div>
+    </div>
+    <div class="big-stat">
+      <i class="ti ti-cpu big-stat-icon" aria-hidden="true"></i>
+      <div class="big-stat-num">1 200+</div>
+      <div class="big-stat-lbl">ASIC устройств онлайн</div>
+    </div>
+    <div class="big-stat">
+      <i class="ti ti-server big-stat-icon" aria-hidden="true"></i>
+      <div class="big-stat-num">99.9%</div>
+      <div class="big-stat-lbl">Uptime оборудования</div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="section-label">Наша миссия</div>
+  <div class="mission-card">
+    <div class="mission-heading">
+      <i class="ti ti-target" style="color:var(--gold2);font-size:20px" aria-hidden="true"></i>
+      Democratize Mining
+    </div>
+    <div class="mission-text">
+      Мы создали HashRent с одной целью — <strong>сделать крипто-майнинг доступным для каждого</strong>. Не нужно тратить десятки тысяч долларов на оборудование, платить огромные счета за электричество или разбираться в технических тонкостях.<br><br>
+      Мы берём всё на себя: покупку оборудования, размещение в дата-центре, обслуживание, мониторинг. <strong>Вы просто получаете доход</strong> — прозрачно, стабильно, без лишних сложностей.<br><br>
+      Сегодня HashRent — это крупнейшая платформа аренды майнинг-оборудования в Казахстане с более чем <strong>3 800 активными пользователями</strong> по всей Центральной Азии.
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section-label">Почему выбирают HashRent</div>
+  <div class="padded" style="margin-bottom:14px">
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">Старт за 30 секунд</div>
+        <div class="feature-desc">Выбрал майнер, нажал «Арендовать» — оборудование запускается мгновенно. Никакой настройки, никаких технических знаний, никакого железа у вас дома.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-building-factory-2" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">Собственный дата-центр в Казахстане</div>
+        <div class="feature-desc">Наши майнинг-фермы расположены в Алматы и Астане. Промышленное охлаждение, резервные линии питания, круглосуточная физическая охрана и видеонаблюдение.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-shield-lock" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">Ваши средства защищены</div>
+        <div class="feature-desc">Шифрование AES-256, холодные кошельки для хранения активов, двухфакторная аутентификация. Вывод доступен в любой момент — без задержек и скрытых блокировок.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">100% прозрачный ROI</div>
+        <div class="feature-desc">Реальные хэшрейты, актуальные курсы криптовалют, честный расчёт доходности. Никаких манипуляций с цифрами. Что видите — то и получаете.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-refresh" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">Автоматический реинвест</div>
+        <div class="feature-desc">После получения дохода цикл перезапускается автоматически. Деньги работают непрерывно — даже пока вы спите.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-headset" aria-hidden="true"></i></div>
+      <div>
+        <div class="feature-title">Живая поддержка · Ответ за 15 минут</div>
+        <div class="feature-desc">Настоящие специалисты в Telegram и WhatsApp — никаких ботов на первой линии. Технические вопросы решаем сами, вы не тратите время.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOUNDERS -->
+  <div class="section-label">Основатели</div>
+
+  <div class="founder-card">
+    <div class="founder-photo">АС</div>
+    <div style="flex:1;min-width:0">
+      <div class="founder-badge"><i class="ti ti-crown" style="font-size:11px"></i> CEO & Co-Founder</div>
+      <div class="founder-name">Арман Сейткали</div>
+      <div class="founder-role">Генеральный директор</div>
+      <div class="founder-desc">
+        10 лет в криптовалютной индустрии. До HashRent запустил три майнинг-фермы суммарной мощностью 45 PH/s. Эксперт по SHA-256 инфраструктуре и токеномике. Выпускник MIT Sloan School of Management. Спикер Kazakhstan Blockchain Forum 2024.
+      </div>
+      <div class="founder-tags">
+        <span class="founder-tag">Bitcoin Mining</span>
+        <span class="founder-tag">Токеномика</span>
+        <span class="founder-tag">VC Fundraising</span>
+        <span class="founder-tag">SHA-256</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="founder-card">
+    <div class="founder-photo">ДН</div>
+    <div style="flex:1;min-width:0">
+      <div class="founder-badge"><i class="ti ti-crown" style="font-size:11px"></i> CTO & Co-Founder</div>
+      <div class="founder-name">Дамир Нуриев</div>
+      <div class="founder-role">Технический директор</div>
+      <div class="founder-desc">
+        Специалист по инфраструктуре дата-центров с 8-летним опытом. Разработал собственную систему мониторинга ASIC-оборудования с аптаймом 99.9%. Бывший инженер Yandex Cloud. Автор 3 патентов в области охлаждения высоконагруженных систем.
+      </div>
+      <div class="founder-tags">
+        <span class="founder-tag">Data Center</span>
+        <span class="founder-tag">ASIC Engineering</span>
+        <span class="founder-tag">DevSecOps</span>
+        <span class="founder-tag">High Load</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="section-label">Команда</div>
+  <div class="team-grid">
+
+    <div class="team-card">
+      <div class="team-photo">АА</div>
+      <div class="team-name">Айгерим Ахметова</div>
+      <div class="team-role-badge">CFO</div>
+      <div class="team-exp">7 лет в fintech. Экс-аналитик Halyk Bank. Управляет финансами и комплаенсом платформы.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo">БК</div>
+      <div class="team-name">Берик Касымов</div>
+      <div class="team-role-badge">Head of Ops</div>
+      <div class="team-exp">Руководит операциями 2-х дата-центров. 6 лет в управлении майнинг-инфраструктурой.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo">МУ</div>
+      <div class="team-name">Мадина Усенова</div>
+      <div class="team-role-badge">Head of Support</div>
+      <div class="team-exp">Выстроила систему поддержки с ответом 15 мин. Команда из 12 специалистов 24/7.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo">РЖ</div>
+      <div class="team-name">Руслан Жуманов</div>
+      <div class="team-role-badge">Lead Developer</div>
+      <div class="team-exp">Архитектор платформы HashRent. 8 лет в backend-разработке. Специализация — безопасность и высокие нагрузки.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo">НБ</div>
+      <div class="team-name">Нурлан Бекенов</div>
+      <div class="team-role-badge">Security Lead</div>
+      <div class="team-exp">Сертифицированный CISSP. Обеспечивает защиту активов пользователей и инфраструктуры платформы.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo">ЗА</div>
+      <div class="team-name">Зарина Абенова</div>
+      <div class="team-role-badge">CMO</div>
+      <div class="team-exp">Рост аудитории с 0 до 3 800 за 6 месяцев. Экс-маркетолог Binance CIS.</div>
+      <div class="photo-hint">📷 фото добавим позже</div>
+    </div>
+
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-label">История компании</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-right">
+        <div class="tl-date">Август 2025</div>
+        <div class="tl-title">💡 Идея и основание</div>
+        <div class="tl-desc">Арман и Дамир принимают решение создать доступную платформу для аренды майнинг-оборудования в Казахстане. Регистрация ТОО «HashRent».</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-right">
+        <div class="tl-date">Октябрь 2025</div>
+        <div class="tl-title">🏗 Запуск дата-центра</div>
+        <div class="tl-desc">Первая майнинг-ферма в Алматы — 200 ASIC-устройств. Найм команды поддержки и разработки. Закрытое бета-тестирование с 50 пользователями.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-right">
+        <div class="tl-date">1 ноября 2025</div>
+        <div class="tl-title">🚀 Официальный запуск</div>
+        <div class="tl-desc">HashRent открывается для всех пользователей. В первую неделю — 300 регистраций. Первые $15 000 выплачены инвесторам.</div>
+        <div class="tl-chip">🎉 Старт публичной платформы</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-right">
+        <div class="tl-date">Январь 2026</div>
+        <div class="tl-title">📜 Лицензия МЦРИАП РК</div>
+        <div class="tl-desc">Получена официальная лицензия оператора цифровых активов Республики Казахстан. Вступление в AIFC как аккредитованного участника.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-right">
+        <div class="tl-date">Март 2026</div>
+        <div class="tl-title">📈 1 000 000 $ выплачено</div>
+        <div class="tl-desc">Платформа преодолевает отметку $1M суммарных выплат пользователям. Открытие второго дата-центра в Астане — 500 новых ASIC.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot tl-dot-active"></div></div>
+      <div class="tl-right">
+        <div class="tl-date" style="color:var(--success)">Сегодня · Май 2026</div>
+        <div class="tl-title">⚡ 3 800+ пользователей · $2.4M выплачено</div>
+        <div class="tl-desc">1 200 ASIC-устройств работают прямо сейчас. Расширяем команду и готовим запуск в Узбекистане и Кыргызстане.</div>
+        <div class="tl-chip">🌍 Выход на рынок СНГ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTS -->
+  <div class="section-label">Лицензии и партнёрства</div>
+  <div class="padded" style="margin-bottom:14px">
+    <div class="cert-row">
+      <div class="cert-icon-wrap"><i class="ti ti-certificate" aria-hidden="true"></i></div>
+      <div style="flex:1">
+        <div class="cert-title">Лицензия МЦРИАП РК №ЦА-2026-0147</div>
+        <div class="cert-desc">Зарегистрированный оператор цифровых активов в Казахстане</div>
+      </div>
+      <i class="ti ti-circle-check cert-check" aria-hidden="true"></i>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon-wrap"><i class="ti ti-building-bank" aria-hidden="true"></i></div>
+      <div style="flex:1">
+        <div class="cert-title">Участник AIFC</div>
+        <div class="cert-desc">Международный финансовый центр «Астана» — аккредитованный участник</div>
+      </div>
+      <i class="ti ti-circle-check cert-check" aria-hidden="true"></i>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon-wrap"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+      <div style="flex:1">
+        <div class="cert-title">ISO/IEC 27001:2022</div>
+        <div class="cert-desc">Международный стандарт информационной безопасности</div>
+      </div>
+      <i class="ti ti-circle-check cert-check" aria-hidden="true"></i>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon-wrap"><i class="ti ti-award" aria-hidden="true"></i></div>
+      <div style="flex:1">
+        <div class="cert-title">Smart Security Labs — Рейтинг A+</div>
+        <div class="cert-desc">Независимый аудит безопасности инфраструктуры и кода платформы</div>
+      </div>
+      <i class="ti ti-circle-check cert-check" aria-hidden="true"></i>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon-wrap"><i class="ti ti-brand-bitmain" aria-hidden="true"></i></div>
+      <div style="flex:1">
+        <div class="cert-title">Официальный партнёр Bitmain</div>
+        <div class="cert-desc">Авторизованный реселлер и сервисный центр Antminer в Казахстане</div>
+      </div>
+      <i class="ti ti-circle-check cert-check" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <div class="cta-title">Присоединяйтесь к 3 800+ инвесторам</div>
+    <div class="cta-sub">
+      Начните получать пассивный доход уже сегодня.<br>
+      Минимальный порог входа — всего <strong style="color:var(--gold2)">$9 в месяц.</strong>
+    </div>
+    <button class="btn-gold" onclick="location.href='index.html'" style="position:relative;max-width:240px;margin:0 auto">
+      <i class="ti ti-cpu" style="font-size:14px;vertical-align:-2px"></i>
+      Начать зарабатывать
+    </button>
+  </div>
+
+  <nav class="bottom-bar">
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Главная">
+      <i class="ti ti-home" aria-hidden="true"></i>Главная
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Майнинг">
+      <i class="ti ti-cpu" aria-hidden="true"></i>Майнинг
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Вывод">
+      <i class="ti ti-arrow-bar-up" aria-hidden="true"></i>Вывод
+    </button>
+    <button class="bar-btn" onclick="location.href='index.html'" aria-label="Профиль">
+      <i class="ti ti-user" aria-hidden="true"></i>Профиль
+    </button>
+    <button class="bar-btn active" aria-label="Ещё">
+      <i class="ti ti-dots" aria-hidden="true"></i>Ещё
+    </button>
+  </nav>
+
+</div>
+<script>
+  const t = localStorage.getItem('hr_theme') || 'dark';
+  document.body.className = {dark:'',light:'theme-light',pure:'theme-pure'}[t] || '';
+
+  const START = new Date('2025-11-01T00:00:00');
+  function tick() {
+    const diff = Math.max(0, Date.now() - START);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cnt-days').textContent  = d;
+    document.getElementById('cnt-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cnt-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cnt-secs').textContent  = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
